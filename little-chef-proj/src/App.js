@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import logo from './remy.gif';
 
-class App extends Component {
+class App extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -10,6 +10,12 @@ class App extends Component {
       data: [],
       loading: false,
     }
+    this.handleSearchTerms = this.handleSearchTerms.bind(this);
+  }
+  handleSearchTerms (data) {
+    this.setState({
+      query: data,
+    });
   }
   render() {
     return (
@@ -17,14 +23,8 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} alt="rat_mascot" height="300" width="300" />
           <p>Welcome to Little Chef!</p>
-          <select>
-            <option value="grapefruit">Grapefruit</option>
-            <option value="lime">Lime</option>
-            <option selected value="coconut">Coconut</option>
-            <option value="mango">Mango</option>
-          </select>
-          <NameForm result={this.state.query}/>
-          <h2 id='return'>Hello</h2>
+          <NameForm result={this.handleSearchTerms}/>
+          <p>You've selected: {this.state.query}</p>
         </header>
       </div>
     );
@@ -46,18 +46,36 @@ class NameForm extends React.Component {
   handleSubmit(event) {
     console.log('A name was submitted: ' + this.state.value);
     event.preventDefault();
+    this.props.result(this.state.value);
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} target='_self'>
-        <label>
-          Name: 
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit"/>
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit} target='_self'>
+          <label>
+            Please give me your ingredient(s): {'         '}
+            <input type="text" placeholder="ingredient" value={this.state.value} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit"/>
+        </form>
+      </div>
     );
+  }
+}
+class Edamam_API extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      base_uri: 'https://api.edamam.com/search',
+      url: ''
+    };
+  }
+  retrieveAPIresults () {
+    fetch(this.state.url) 
+  }
+  render() {
+    return <p>inserrt actual results</p>
   }
 }
 export default App;
