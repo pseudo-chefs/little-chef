@@ -7,8 +7,7 @@ class App extends React.Component {
     super()
     this.state = {
       query: '',
-      data: [],
-      loading: false,
+      data: '',
     }
     this.handleSearchTerms = this.handleSearchTerms.bind(this);
   }
@@ -25,9 +24,8 @@ class App extends React.Component {
           <p>Welcome to Little Chef!</p>
           <NameForm result={this.handleSearchTerms}/>
           <p>You've selected: {this.state.query}</p>
-          
-        <edamamAPI data={this.state.value}/>
         </header>
+        <EdamamAPI result={this.state.query}/>
       </div>
     );
   }
@@ -46,7 +44,7 @@ class NameForm extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log('A name was submitted: ' + this.state.value);
+    console.log('Submitted query: ' + this.state.value);
     event.preventDefault();
     this.props.result(this.state.value);
   }
@@ -65,39 +63,68 @@ class NameForm extends React.Component {
     );
   }
 }
-class edamamAPI extends React.Component {
+class EdamamAPI extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       base_uri: 'https://api.edamam.com/search?q=',
       url: ''
-    };
+    }
+    this.setURL = this.setURL.bind(this);
   }
-  constructURL (props) {
+  constructURL () {
     let api_key = 'a43bf8507f8003e4e71a462df8432988';
     let app_id = 'ae25febc';
-    let construct_url = this.state.base_uri + this.props.query + '&app_id=' + app_id + '&app_key=' + api_key;
-    this.setState({
-      url: construct_url,
-    });
-    console.log(this.state.url);
-
+    let construct_url = this.state.base_uri + this.props.result + '&app_id=' + app_id + '&app_key=' + api_key + '&from=0' + '&to=3';
+    return construct_url;
   }
-  retrieveAPIresults (url) {
-    fetch(this.state.url)
+  setURL(data) {
+    this.setState({
+      url: data,
+    });
+  }
+  retrieveAPIresults(url) {
+    let extract = [];
+    fetch(url)
       .then(function(response){
+        if (response.status >= 400) {
+          throw new Error ("Bad response from Server");
+        }
         return response.json();
       }) 
       .then(function(myJson) {
-        let ret = JSON.stringify(myJson);
-        console.log(ret);
-        this.props.query(ret);
+        Object.entries(myJson).forEach(([key, value]) => {
+          // do something with key and val
+          // console.log([key, value]);
+          if (key === "hits") {
+            Object.entries(value).forEach(([index, recipe]) => {
+              // console.log([index, recipe]);
+              Object.entries(recipe).forEach(([r, v]) => {
+                // console.log([r, v]);
+                if (r === "recipe") {
+                  Object.entries(v).forEach(([r, v]) => {
+                    // console.log([r, v]);
+                    if (r === "label" || r === "image" || r === "url" || r === "ingredientsLines") {
+                      // extract.push(JSON.stringify(v));
+                      extract.push(v);
+                    }
+                  });
+                } 
+              });
+            });
+          }
+        });
       })
+    return extract;
   }
   render() {
+    let url = this.constructURL();
+    // console.log(this.state.url);
+    let j = this.retrieveAPIresults(url);
+    console.log(j[0]);
     return (
       <div>
-        <h1>This is where the JSON information should be inserted. Or it is completed.</h1>
+        <p>Here are your recipes: {j[0]}</p>
       </div>
     );
   }
