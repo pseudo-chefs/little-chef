@@ -24,8 +24,8 @@ class App extends React.Component {
           <p>Welcome to Little Chef!</p>
           <NameForm result={this.handleSearchTerms}/>
           <p>You've selected: {this.state.query}</p>
-        </header>
         <EdamamAPI result={this.state.query}/>
+        </header>
       </div>
     );
   }
@@ -105,7 +105,6 @@ class EdamamAPI extends React.Component {
                   Object.entries(v).forEach(([r, v]) => {
                     // console.log([r, v]);
                     if (r === "label" || r === "image" || r === "url" || r === "ingredientsLines") {
-                      // extract.push(JSON.stringify(v));
                       extract.push(v);
                     }
                   });
@@ -119,12 +118,12 @@ class EdamamAPI extends React.Component {
   }
   render() {
     let url = this.constructURL();
-    // console.log(this.state.url);
     let j = this.retrieveAPIresults(url);
-    console.log(j[0]);
+    console.log(j);
+    let listJ = j.map((elem) => <li>elem</li>);
     return (
       <div>
-        <p>Here are your recipes: {j[0]}</p>
+        <ul>{listJ}</ul>
       </div>
     );
   }
