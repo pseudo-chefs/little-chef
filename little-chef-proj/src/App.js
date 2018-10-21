@@ -47,6 +47,7 @@ class NameForm extends React.Component {
     console.log('A name was submitted: ' + this.state.value);
     event.preventDefault();
     this.props.result(this.state.value);
+    Edamam_API();
   }
 
   render() {
@@ -71,7 +72,10 @@ class Edamam_API extends React.Component {
       url: ''
     };
   }
-  retrieveAPIresults () {
+  constructURL () {
+
+  }
+  retrieveAPIresults (url) {
     fetch(this.state.url) 
   }
   render() {
