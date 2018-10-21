@@ -25,6 +25,8 @@ class App extends React.Component {
           <p>Welcome to Little Chef!</p>
           <NameForm result={this.handleSearchTerms}/>
           <p>You've selected: {this.state.query}</p>
+          
+        <edamamAPI data={this.state.value}/>
         </header>
       </div>
     );
@@ -47,7 +49,6 @@ class NameForm extends React.Component {
     console.log('A name was submitted: ' + this.state.value);
     event.preventDefault();
     this.props.result(this.state.value);
-    Edamam_API();
   }
 
   render() {
@@ -64,22 +65,41 @@ class NameForm extends React.Component {
     );
   }
 }
-class Edamam_API extends React.Component {
-  constructor() {
-    super();
+class edamamAPI extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      base_uri: 'https://api.edamam.com/search',
+      base_uri: 'https://api.edamam.com/search?q=',
       url: ''
     };
   }
-  constructURL () {
+  constructURL (props) {
+    let api_key = 'a43bf8507f8003e4e71a462df8432988';
+    let app_id = 'ae25febc';
+    let construct_url = this.state.base_uri + this.props.query + '&app_id=' + app_id + '&app_key=' + api_key;
+    this.setState({
+      url: construct_url,
+    });
+    console.log(this.state.url);
 
   }
   retrieveAPIresults (url) {
-    fetch(this.state.url) 
+    fetch(this.state.url)
+      .then(function(response){
+        return response.json();
+      }) 
+      .then(function(myJson) {
+        let ret = JSON.stringify(myJson);
+        console.log(ret);
+        this.props.query(ret);
+      })
   }
   render() {
-    return <p>inserrt actual results</p>
+    return (
+      <div>
+        <h1>This is where the JSON information should be inserted. Or it is completed.</h1>
+      </div>
+    );
   }
 }
 export default App;
