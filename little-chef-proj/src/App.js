@@ -59,6 +59,7 @@ class NameForm extends React.Component {
           </label>
           <input type="submit" value="Submit"/>
         </form>
+      
       </div>
     );
   }
@@ -119,8 +120,11 @@ class EdamamAPI extends React.Component {
   render() {
     let url = this.constructURL();
     let j = this.retrieveAPIresults(url);
-    console.log(j);
-    let listJ = j.map((elem) => <li>elem</li>);
+    let nj = JSON.stringify(j)
+   
+    console.log(nj);
+    let listJ = j.map((elem) => <li>{elem}</li>);
+    console.log(listJ);
     return (
       <div>
         <ul>{listJ}</ul>
