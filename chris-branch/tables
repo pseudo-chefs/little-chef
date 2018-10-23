@@ -1,0 +1,184 @@
+import React from 'react';
+import logo from './little-chef.gif';
+import './App.css';
+
+function Add(props) {
+  return (
+    <div className="center">
+      <button className="add-button hvr-bounce-in noSelect" onClick={props.onClick} type="button">+</button>
+    </div>
+  );
+}
+
+function Search() {
+  return (
+    <div className="center">
+      <button className="search-button hvr-bounce-in noSelect" type="button">Search!</button>
+    </div>
+  );
+}
+
+class Ingredient extends React.Component {
+  // handleIngredients() {
+  //   const groceries = this.props.ingredients.map((item, num) => {
+  //     const desc = num ? 'Ingredient #' + num : 'Nothing here';
+  //     return (
+  //       <div>
+  //         <h3>{desc}</h3>
+  //         <input type="text"/>
+  //       </div>
+  //     );
+  //   });
+  // }
+
+  updateResponse = (event) => {
+      this.setState({ response: event.target.value });
+  }
+
+  inputKeyPress = (event) => {
+      if (event.key === "Enter") {
+          const answer = (this.state.response);
+          this.props.
+      }
+  }
+
+  handleIngredients() {
+    let table = []
+    // Outer loop to create parent
+    for (let i = 0; i < this.props.ingredients.length; i++) {
+      let children = [];
+      const desc = 'Ingredient #' + (i + 1);
+      children.push(<div className="center">
+                      <h3>{desc}</h3>
+                      <input
+                        type="text"
+                        onKeyPress={this.inputKeyPress}
+                        onChange={this.updateResponse}
+                        value={this.state.response}
+                      />
+                      <button className="minus-button hvr-bounce-out noSelect" onClick={this.props.onMinus} type="button">-</button>
+                    </div>);
+      table.push(<tr key={i}>{children}</tr>);
+    }
+    return table;
+  }
+
+  render() {
+    return (
+      <div>
+        <table>
+          {this.handleIngredients()}
+        </table>
+      </div>
+    );
+  }
+}
+
+class Kitchen extends React.Component {
+  renderSearch() {
+    return <Search />;
+  }
+
+  renderIngredients() {
+    return <Ingredient
+      ingredients={this.props.ingredients}
+      onMinus={() => this.props.onMinus()}
+    />;
+  }
+
+  renderAdd() {
+    return <Add
+      ingredients={this.props.ingredients}
+      onClick={() => this.props.onClick()}
+    />;
+  }
+
+  renderHeader() {
+    const emptyKitchen =
+      <div>
+        <h1>No ingredients added.</h1>
+        {/* <h2>You've got an empty kitchen!</h2> */}
+      </div>;
+    return (
+      (this.props.ingredients.length === 0) ?
+      <div>{emptyKitchen}</div> : ((this.props.ingredients.length === 1) ?
+                                <h1>{this.props.ingredients.length} ingredient.</h1> :
+                                <h1>{this.props.ingredients.length} ingredients.</h1>)
+    );
+  }
+
+  renderShoppingList() {
+    return (
+      this.props.ingredients.length === 0 ? <h3>Empty kitchen!</h3> : <h3>{this.props.ingredients}</h3>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="topHeader">
+          {this.renderHeader()}
+          {this.renderShoppingList()}
+        </div>
+        <div>
+          {this.props.ingredients.length === 0 ? "" : this.renderSearch()}
+        </div>
+        <div>
+          {this.renderIngredients()}
+        </div>
+        <div>
+          {this.renderAdd()}
+        </div>
+      </div>
+    );
+  }
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ingredients: Array(0).fill(null),
+    }
+  }
+
+  handleClick() {
+    const newIngredients = this.state.ingredients.slice();
+    newIngredients.push(null);
+    this.setState({
+      ingredients: newIngredients,
+    });
+  }
+
+  handleMinus() {
+    const prevLength = this.state.ingredients.length - 1;
+    this.setState({
+      ingredients: Array(prevLength).fill(null),
+    });
+  }
+
+  render() {
+    return(
+      <div className="App">
+        <header className="App-header">
+          <h1>Little Chef</h1>
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>Welcome to <b>Little Chef</b>! Currently under construction.</p>
+          <p>Built for HackHarvard 2018.</p>
+          <div className="arrow"></div>
+        </header>
+        <div className="main">
+          <Kitchen
+            ingredients={this.state.ingredients}
+            onClick={() => this.handleClick()}
+            onMinus={() => this.handleMinus()}
+          />
+        </div>
+      </div>
+    );
+  }
+}
+
+// ========================================
+
+export default App;

@@ -1,0 +1,81 @@
+import React, { Component } from 'react';
+import logo from './little-chef.gif';
+import './App.css';
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ingredents: 0,
+    };
+  }
+
+  render() {
+    const ingredients = this.state.ingredients;
+
+    const ingredientsList = ingredients.map((item, num) => {
+      const desc = num ? 'Ingredient #' + num : 'No ingredients added.';
+      return (
+        <h3>{desc}</h3>
+        <input type="text"/>
+      );
+    });
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Welcome to <b>Little Chef</b>! Currently under construction.
+          </p>
+          <div class="arrow"></div>
+        </header>
+      </div>
+    );
+  }
+
+
+        {/* <body>
+          <div class="main">
+            <h1>What ingredients do you have?</h1>
+            <Ingredient
+
+            />
+            <h3>Ingredient #1</h3>
+            <input type="text" name="fname"/>
+            <div class="center">
+              <button class="add-button hvr-bounce-in" type="button">+</button>
+            </div>
+
+          </div>
+        </body>
+      </div>
+    );
+  }
+}
+
+// function AddButton(props) {
+//   return (
+//     <button className=
+//   );
+// }
+//
+class Ingredient extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ingredients: 1,
+    };
+  }
+
+  render() {
+    const ingredient = this.state.ingredients.map((step, num) => {
+      const desc = num ? 'Ingredient #' + num : 'No ingredients added.';
+      return (
+        <h3>{desc}</h3>
+      );
+    });
+    return;
+  };
+} */}
+
+export default App;

@@ -1,0 +1,227 @@
+* {
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  /* animation: App-logo-spin infinite 20s linear; */
+  height: 40vmin;
+  border-radius: 5%;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.arrow {
+  margin-top: 20px;
+  box-sizing: border-box;
+  height: 5vw;
+  width: 5vw;
+  border-style: solid;
+  border-color: white;
+  border-width: 0px 1px 1px 0px;
+  transform: rotate(45deg);
+  transition: border-width 150ms ease-in-out;
+}
+
+.arrow:hover {
+  border-bottom-width: 4px;
+  border-right-width: 4px;
+}
+
+body {
+  background-color: #f3f3f3;
+}
+
+.main h1 {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin: 0;
+  /* text-decoration: underline; */
+}
+
+.main h3 {
+  margin-top: -10px;
+}
+
+.main {
+  height: 100vh;
+  overflow: auto;
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #fafafa;
+  box-shadow: 0 4px 5px 3px lightgray;
+  width: 100%;
+}
+
+.add-button {
+  background-color: #1A77AC;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  font-size: 16px;
+  border-radius: 50%;
+}
+
+.add-button:hover {
+  /* background-color: black; */
+  box-shadow: 3px 3px #888888;
+  /* font-size: 1.5em; */
+  /* padding: 3px 4px; */
+  cursor: pointer;
+}
+
+.add-button:active {
+  box-shadow: 0px 0px;
+}
+
+.minus-button {
+  background-color: #CD5C5C;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin: 10px -40px 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  font-size: 14px;
+  border-radius: 50%;
+}
+
+.minus-button:hover {
+  /* background-color: black; */
+  box-shadow: 3px 3px #888888;
+  /* font-size: 1.5em; */
+  /* padding: 3px 4px; */
+  cursor: pointer;
+}
+
+.minus-button:active {
+  box-shadow: 0px 0px;
+}
+
+.search-button {
+  background-color: #299039;
+  border: none;
+  color: white;
+  padding: 20px 20px;
+  /* margin: 10px -40px 15px 20px; */
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  font-size: 26px;
+  border-radius: 8%;
+}
+
+.search-button:hover {
+  background-color: #22762E;
+  box-shadow: 3px 3px #888888;
+  /* font-size: 1.5em; */
+  /* padding: 3px 4px; */
+  cursor: pointer;
+}
+
+.search-button:active {
+  box-shadow: 0px 0px;
+}
+
+input {
+  height: 30px;
+  width: 300px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.noSelect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none !important;
+}
+
+/* Bounce In */
+.hvr-bounce-in {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+.hvr-bounce-in:hover, .hvr-bounce-in:focus, .hvr-bounce-in:active {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+}
+
+/* Bounce Out */
+.hvr-bounce-out {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+.hvr-bounce-out:hover, .hvr-bounce-out:focus, .hvr-bounce-out:active {
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+  -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+}
+
+.center {
+  /* width: 70%; */
+  text-align: center;
+  /* margin-left: 15%;
+  margin-right: 15%; */
+  padding: 25px;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.topHeader h3 {
+  margin-top: -10px;
+  padding: 20px 0px;
+  background-color: #42659F;
+  color: white;
+}
